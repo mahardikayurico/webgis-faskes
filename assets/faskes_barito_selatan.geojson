@@ -1,0 +1,328 @@
+{
+  "type": "FeatureCollection",
+  "name": "faskes_barito_selatan",
+  "crs": {
+    "type": "name",
+    "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" }
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "node",
+        "id": 11987419984,
+        "addr:city": "Barito Selatan",
+        "addr:district": "Dusun Selatan",
+        "addr:province": "Kalimantan Tengah",
+        "addr:street": "Jalan Pakusualam",
+        "addr:subdistrict": "Baru",
+        "amenity": "clinic",
+        "healthcare": "clinic",
+        "name": "Puskesmas Desa Baru",
+        "operator": "Ministry of Health",
+        "operator:en": "Ministry of Health",
+        "operator:id": "Kementerian Kesehatan",
+        "operator:type": "government",
+        "operator:wikidata": "Q12490745",
+        "short_name": null,
+        "building": null,
+        "addr:full": null,
+        "building:levels": null,
+        "capacity:persons": null,
+        "admin_level": null
+      },
+      "geometry": { "type": "Point", "coordinates": [114.8044021, -1.778908] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "node",
+        "id": 11987419986,
+        "addr:city": "Barito Selatan",
+        "addr:district": "Dusun Selatan",
+        "addr:province": "Kalimantan Tengah",
+        "addr:street": "Jalan Barito",
+        "addr:subdistrict": "Baru",
+        "amenity": "pharmacy",
+        "healthcare": "pharmacy",
+        "name": "Apotek Hampahari",
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": null,
+        "building": null,
+        "addr:full": null,
+        "building:levels": null,
+        "capacity:persons": null,
+        "admin_level": null
+      },
+      "geometry": { "type": "Point", "coordinates": [114.8055521, -1.7762899] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "node",
+        "id": 12087701280,
+        "addr:city": null,
+        "addr:district": null,
+        "addr:province": null,
+        "addr:street": null,
+        "addr:subdistrict": null,
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "Pos Kesehatan Desa Teluk Telaga",
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": null,
+        "building": null,
+        "addr:full": null,
+        "building:levels": null,
+        "capacity:persons": null,
+        "admin_level": null
+      },
+      "geometry": { "type": "Point", "coordinates": [114.7887253, -1.7944507] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "way",
+        "id": 382975333,
+        "addr:city": null,
+        "addr:district": null,
+        "addr:province": null,
+        "addr:street": null,
+        "addr:subdistrict": null,
+        "amenity": "clinic",
+        "healthcare": null,
+        "name": "Puskesmas Bantai Bambure",
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": null,
+        "building": "yes",
+        "addr:full": "Jl. Kandui-Patas",
+        "building:levels": "1",
+        "capacity:persons": "50",
+        "admin_level": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.15317579395996, -1.405557024546153]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "way",
+        "id": 382975335,
+        "addr:city": null,
+        "addr:district": null,
+        "addr:province": null,
+        "addr:street": null,
+        "addr:subdistrict": null,
+        "amenity": "clinic",
+        "healthcare": null,
+        "name": "Puskesmas Pembantu Rampa Mea",
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": "Pustu Rampa Mea",
+        "building": "yes",
+        "addr:full": "Jl. Kandui-Patas",
+        "building:levels": "1",
+        "capacity:persons": null,
+        "admin_level": "7"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.130212979508698, -1.352865843131881]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "way",
+        "id": 382975336,
+        "addr:city": null,
+        "addr:district": null,
+        "addr:province": null,
+        "addr:street": null,
+        "addr:subdistrict": null,
+        "amenity": "clinic",
+        "healthcare": null,
+        "name": "Puskesmas Pembantu Tapen Raya",
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": "Pustu Tapen Raya",
+        "building": "yes",
+        "addr:full": "Jl. Kandui-Patas KM 9",
+        "building:levels": "1",
+        "capacity:persons": null,
+        "admin_level": "7"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.12207541750773, -1.327029873709269]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "way",
+        "id": 383004119,
+        "addr:city": null,
+        "addr:district": null,
+        "addr:province": null,
+        "addr:street": null,
+        "addr:subdistrict": null,
+        "amenity": "clinic",
+        "healthcare": null,
+        "name": "Puskesmas Pembantu Gagutur",
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": "Pustu Gagutur",
+        "building": "yes",
+        "addr:full": null,
+        "building:levels": "1",
+        "capacity:persons": null,
+        "admin_level": null
+      },
+      "geometry": { "type": "Point", "coordinates": [115.14334155, -1.6104109] }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "way",
+        "id": 383004219,
+        "addr:city": null,
+        "addr:district": null,
+        "addr:province": null,
+        "addr:street": null,
+        "addr:subdistrict": null,
+        "amenity": "clinic",
+        "healthcare": null,
+        "name": "Puskesmas Patas I",
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": null,
+        "building": "yes",
+        "addr:full": null,
+        "building:levels": "1",
+        "capacity:persons": null,
+        "admin_level": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.159981875984812, -1.528600878964764]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "way",
+        "id": 423252353,
+        "addr:city": null,
+        "addr:district": null,
+        "addr:province": null,
+        "addr:street": null,
+        "addr:subdistrict": null,
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": "RSUD Jaraga Sasameh",
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": null,
+        "building": null,
+        "addr:full": null,
+        "building:levels": null,
+        "capacity:persons": null,
+        "admin_level": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.832165327355327, -1.724482105907285]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "way",
+        "id": 1038602219,
+        "addr:city": null,
+        "addr:district": null,
+        "addr:province": null,
+        "addr:street": null,
+        "addr:subdistrict": null,
+        "amenity": "clinic",
+        "healthcare": null,
+        "name": "Puskesmas Pembantu Patas II",
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": "Pustu Patas II",
+        "building": "yes",
+        "addr:full": null,
+        "building:levels": null,
+        "capacity:persons": null,
+        "admin_level": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [115.177629250864655, -1.498757788461643]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "element": "way",
+        "id": 1305272891,
+        "addr:city": null,
+        "addr:district": null,
+        "addr:province": null,
+        "addr:street": null,
+        "addr:subdistrict": null,
+        "amenity": "hospital",
+        "healthcare": "hospital",
+        "name": null,
+        "operator": null,
+        "operator:en": null,
+        "operator:id": null,
+        "operator:type": null,
+        "operator:wikidata": null,
+        "short_name": null,
+        "building": null,
+        "addr:full": null,
+        "building:levels": null,
+        "capacity:persons": null,
+        "admin_level": null
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.788819374125239, -1.794494588657886]
+      }
+    }
+  ]
+}

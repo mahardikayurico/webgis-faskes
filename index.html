@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Heatmap Visualisasi Peta</title>
+
+    <!-- CDN Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Mapbox GL JS CDN -->
+    <link
+      href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css"
+      rel="stylesheet"
+    />
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
+
+    <!-- Optional: Add custom styles for the map container -->
+    <style>
+      #map {
+        width: 100%;
+        height: 100vh;
+      }
+    </style>
+  </head>
+
+  <body class="bg-gray-100">
+    <!-- Page Header using Tailwind CSS -->
+    <header class="bg-blue-600 p-4 text-white">
+      <h1 class="text-3xl font-bold text-center">Visualisasi Heatmap Peta</h1>
+    </header>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <!-- Script to initialize Mapbox and add GeoJSON heatmap -->
+    <script>
+      // Peta Mapbox
+      mapboxgl.accessToken =
+        "pk.eyJ1IjoibWFoYXJkaWtheXVyaWNvYmlsbGlhbiIsImEiOiJjbTdrcDk1YXIwMzcyMmtweGlpbHFvb3JwIn0.TDtP3iZj6oKYY2RPFbtLZA"; // Ganti dengan Mapbox API Key Anda
+      var map = new mapboxgl.Map({
+        container: "map", // ID container div
+        style: "mapbox://styles/mapbox/streets-v11", // Gaya peta
+        center: [115.0, -1.5], // Koordinat pusat peta (longitude, latitude)
+        zoom: 10, // Tingkat zoom
+      });
+
+      // Menambahkan kontrol peta (zoom, layar penuh, dll)
+      map.addControl(new mapboxgl.NavigationControl());
+
+      map.on("load", function () {
+        // Menambahkan Source untuk administrasi_wilayah.geojson (data wilayah dengan jumlah penduduk)
+        map.addSource("administrasi-wilayah", {
+          type: "geojson",
+          data: "assets/administrasi_wilayah.geojson", // Path ke file GeoJSON wilayah
+        });
+
+        // Menambahkan Layer untuk menampilkan Polygon dengan warna coklat
+        map.addLayer({
+          id: "administrasi-wilayah-layer",
+          type: "fill",
+          source: "administrasi-wilayah",
+          paint: {
+            "fill-color": "rgba(139, 69, 19, 0.5)", // Coklat dengan transparansi 50%
+            "fill-outline-color": "rgba(139, 69, 19, 1)", // Coklat lebih gelap untuk garis tepi
+          },
+        });
+
+        map.addSource("geojson-output", {
+          type: "geojson",
+          data: "assets/geojson_output.geojson", // Path ke file GeoJSON
+        });
+
+        // Menambahkan Layer untuk titik-titik (circle) dengan gradasi warna
+        map.addLayer({
+          id: "points-layer",
+          type: "circle",
+          source: "geojson-output",
+          paint: {
+            "circle-radius": 10,
+            "circle-color": [
+              "interpolate",
+              ["linear"],
+              ["to-number", ["get", "skor_total"]], // Mengonversi skor_total ke angka
+              0,
+              "rgb(255, 0, 0)", // Merah untuk skor rendah
+              0.5,
+              "rgb(255, 255, 0)", // Kuning untuk skor menengah
+              1,
+              "rgb(0, 0, 255)", // Biru untuk skor tinggi
+            ],
+            "circle-opacity": 0.9,
+          },
+        });
+
+        // Menambahkan Source untuk jalan_slope.geojson (data jalan)
+        map.addSource("jalan-slope", {
+          type: "geojson",
+          data: "assets/jalan_slope.geojson", // Path ke file GeoJSON jalan
+        });
+
+        // Menambahkan Layer untuk jalan_slope.geojson
+        map.addLayer({
+          id: "jalan-slope-layer",
+          type: "line", // Jenis layer untuk menggambar garis jalan
+          source: "jalan-slope",
+          paint: {
+            "line-color": "#1E90FF", // Warna garis jalan (misalnya biru)
+            "line-width": 2, // Lebar garis
+          },
+        });
+
+        // Menambahkan Source untuk faskes_barito_selatan.geojson
+        map.addSource("faskes-barito-selatan", {
+          type: "geojson",
+          data: "assets/faskes_barito_selatan.geojson", // Path ke file GeoJSON kedua
+        });
+
+        // Menambahkan markers untuk fasilitas kesehatan dengan ikon rumah sakit
+        map.addLayer({
+          id: "faskes-markers",
+          type: "symbol",
+          source: "faskes-barito-selatan",
+          layout: {
+            "icon-image": "hospital-15", // Gunakan ikon rumah sakit bawaan Mapbox
+            "icon-size": 1.5,
+            "icon-allow-overlap": true,
+          },
+        });
+
+        // Menambahkan Source untuk data GeoJSON lain yang mungkin Anda miliki
+        map.addSource("other-geojson", {
+          type: "geojson",
+          data: "assets/other_data.geojson", // Path ke file GeoJSON lainnya
+        });
+
+        // Menambahkan Heatmap Layer untuk data GeoJSON lain
+        map.addLayer({
+          id: "heatmap-other-data",
+          type: "heatmap",
+          source: "other-geojson",
+          maxzoom: 15,
+          paint: {
+            "heatmap-intensity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              10,
+              1,
+              15,
+              3,
+            ],
+            "heatmap-radius": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              10,
+              2,
+              15,
+              30,
+            ],
+            "heatmap-color": [
+              "interpolate",
+              ["linear"],
+              ["heatmap-density"],
+              0,
+              "rgba(0, 0, 255, 0)",
+              0.1,
+              "rgb(0, 0, 255)",
+              0.3,
+              "rgb(0, 255, 0)",
+              0.5,
+              "rgb(255, 255, 0)",
+              0.7,
+              "rgb(255, 0, 0)",
+            ],
+            "heatmap-opacity": [
+              "interpolate",
+              ["linear"],
+              ["zoom"],
+              10,
+              0.5,
+              15,
+              1,
+            ],
+          },
+        });
+      });
+    // Kontrol Layer (Layer Control)
+    const layers = [
+            { id: 'administrasi-wilayah-layer', name: 'Wilayah Administrasi' },
+            { id: 'points-layer', name: 'Titik dengan Skor' },
+            { id: 'jalan-slope-layer', name: 'Jalan Slope' },
+            { id: 'faskes-markers', name: 'Fasilitas Kesehatan' },
+        ];
+
+        const layerControl = document.createElement('div');
+        layerControl.classList.add('layer-control');
+        document.body.appendChild(layerControl);
+
+        layers.forEach(layer => {
+            const layerDiv = document.createElement('div');
+            const layerCheckbox = document.createElement('input');
+            layerCheckbox.type = 'checkbox';
+            layerCheckbox.checked = true;
+            layerCheckbox.addEventListener('change', function () {
+                if (this.checked) {
+                    map.setLayoutProperty(layer.id, 'visibility', 'visible');
+                } else {
+                    map.setLayoutProperty(layer.id, 'visibility', 'none');
+                }
+            });
+            const layerLabel = document.createElement('label');
+            layerLabel.textContent = layer.name;
+            layerDiv.appendChild(layerCheckbox);
+            layerDiv.appendChild(layerLabel);
+            layerControl.appendChild(layerDiv);
+        });
+    </script>
+</body>
+</html>
