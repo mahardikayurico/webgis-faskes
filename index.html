@@ -60,6 +60,9 @@
           id: "administrasi-wilayah-layer",
           type: "fill",
           source: "administrasi-wilayah",
+          layout: {
+                'visibility': 'visible'
+            },
           paint: {
             "fill-color": "rgba(139, 69, 19, 0.5)", // Coklat dengan transparansi 50%
             "fill-outline-color": "rgba(139, 69, 19, 1)", // Coklat lebih gelap untuk garis tepi
@@ -76,13 +79,18 @@
           id: "points-layer",
           type: "circle",
           source: "geojson-output",
+          layout: {
+                'visibility': 'visible'
+            },
           paint: {
-            "circle-radius": 10,
+            "circle-radius": 30,
             "circle-color": [
               "interpolate",
               ["linear"],
               ["to-number", ["get", "skor_total"]], // Mengonversi skor_total ke angka
               0,
+              "rgb(0, 0, 255)", 
+              0.1,
               "rgb(255, 0, 0)", // Merah untuk skor rendah
               0.5,
               "rgb(255, 255, 0)", // Kuning untuk skor menengah
@@ -90,6 +98,7 @@
               "rgb(0, 0, 255)", // Biru untuk skor tinggi
             ],
             "circle-opacity": 0.9,
+            "circle-blur": 0.9,
           },
         });
 
@@ -104,8 +113,11 @@
           id: "jalan-slope-layer",
           type: "line", // Jenis layer untuk menggambar garis jalan
           source: "jalan-slope",
+          layout: {
+                'visibility': 'visible'
+            },
           paint: {
-            "line-color": "#1E90FF", // Warna garis jalan (misalnya biru)
+            "line-color": "#C5172E", // Warna garis jalan (misalnya biru)
             "line-width": 2, // Lebar garis
           },
         });
@@ -121,6 +133,9 @@
           id: "faskes-markers",
           type: "symbol",
           source: "faskes-barito-selatan",
+          layout: {
+                'visibility': 'visible'
+            },
           layout: {
             "icon-image": "hospital-15", // Gunakan ikon rumah sakit bawaan Mapbox
             "icon-size": 1.5,
@@ -139,6 +154,9 @@
           id: "heatmap-other-data",
           type: "heatmap",
           source: "other-geojson",
+          layout: {
+                'visibility': 'visible'
+            },
           maxzoom: 15,
           paint: {
             "heatmap-intensity": [
