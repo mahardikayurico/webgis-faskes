@@ -19,14 +19,14 @@
     <style>
       /* Peta akan mengisi seluruh halaman */
       #map {
-        height: 100vh;
+        height: 50vh;
         width: 100%;
       }
       /* Panel kontrol di kanan atas */
       .layer-control {
         position: absolute;
-        top: 5rem;
-        left: 10px;
+        bottom: 30px;
+        right: 10px;
         background: rgba(255, 255, 255, 0.7);
         padding: 10px;
         border-radius: 5px;
@@ -35,34 +35,740 @@
       .layer-control input {
         margin-right: 5px;
       }
-      /* Media query untuk perangkat mobile */
-      @media screen and (max-width: 768px) {
-        .layer-control {
-          top: 7rem; /* Penambahan untuk tampilan mobile */
-        }
-      }
     </style>
   </head>
 
-  <body class="bg-gray-100">
-    <!-- Page Header using Tailwind CSS -->
-    <header class="bg-blue-600 p-4 text-white">
-      <h1 class="text-3xl font-bold text-center">
-        Aksesibilitas Fasilitas Kesehatan Kabupaten Barito Selatan
-      </h1>
-    </header>
+  <body class="font-sans bg-gray-300">
+    <!-- Sidebar Header -->
+    <div
+      id="sidebar"
+      class="fixed top-4 left-4 z-50 w-64 h-[90%] bg-white/30 backdrop-blur-md shadow-2xl rounded-3xl p-6 flex flex-col items-center space-y-6 transition-all duration-500 overflow-hidden"
+    >
+      <!-- Logo -->
+      <div
+        id="logo"
+        class="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center shadow-md transition-all duration-500"
+      >
+        <span class="text-white text-2xl font-bold">K7</span>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <nav
+        id="navMenu"
+        class="flex flex-col w-full space-y-4 transition-all duration-500"
+      >
+        <button
+          onclick="showPage('home')"
+          class="menu-btn flex items-center space-x-3 px-4 py-2 text-gray-700 bg-white hover:bg-indigo-100 rounded-xl border border-gray-200 transition font-medium shadow-sm"
+        >
+          <svg
+            class="w-5 h-5 text-indigo-500"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M3 9l9-7 9 7v11a2 2 0 01-2 2h-4a2 2 0 01-2-2V12H9v8a2 2 0 01-2 2H3a2 2 0 01-2-2V9z"
+            />
+          </svg>
+          <span class="menu-text">Home</span>
+        </button>
+        <button
+          onclick="showPage('data-analisis')"
+          class="menu-btn flex items-center space-x-3 px-4 py-2 text-gray-700 bg-white hover:bg-indigo-100 rounded-xl border border-gray-200 transition font-medium shadow-sm"
+        >
+          <svg
+            class="w-5 h-5 text-indigo-500"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M9 17v-6h13v6m-6-6V5h-7v6h7zm6 6v-6h-7v6h7z" />
+          </svg>
+          <span class="menu-text">Data & Analisis</span>
+        </button>
+        <button
+          onclick="showPage('maps')"
+          class="menu-btn flex items-center space-x-3 px-4 py-2 text-gray-700 bg-white hover:bg-indigo-100 rounded-xl border border-gray-200 transition font-medium shadow-sm"
+        >
+          <svg
+            class="w-5 h-5 text-indigo-500"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M1 6h2l2 14h12l2-14h2M5 6l2 14m4-14l2 14m4-14l2 14" />
+          </svg>
+          <span class="menu-text">Maps</span>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Toggle Button -->
+    <button
+      id="toggleSidebarBtn"
+      onclick="toggleSidebar()"
+      class="fixed left-4 top-1/2 transform -translate-y-1/2 z-50 bg-indigo-500 hover:bg-indigo-600 text-white p-3 rounded-full shadow-lg transition-all duration-300"
+    >
+      <svg
+        id="toggleIcon"
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        viewBox="0 0 24 24"
+      >
+        <path id="togglePath" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <!-- Home Page Content -->
+    <div
+      id="home"
+      class="px-6 md:px-20 py-10 flex flex-col items-center text-center space-y-12"
+    >
+      <!-- Banner atau Cover -->
+      <div class="relative w-full overflow-hidden">
+        <!-- Gambar background -->
+        <img
+          src="assets/images.png"
+          alt="Peta Aksesibilitas"
+          class="w-full h-full object-cover filter blur-sm"
+        />
+
+        <!-- Konten di atas gambar -->
+        <div
+          class="absolute inset-0 flex flex-col items-center justify-center text-center px-4"
+        >
+          <!-- Judul Besar -->
+          <h2
+            class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6 drop-shadow-lg"
+          >
+            Aksesibilitas Fasilitas Kesehatan<br />Kabupaten Barito Selatan
+          </h2>
+
+          <!-- Tombol Mulai -->
+          <a
+            href="#maps"
+            onclick="showPage('maps')"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-8 rounded-full text-lg md:text-xl transition"
+          >
+            Start Explore Map
+          </a>
+        </div>
+      </div>
+
+      <!-- Intro Paragraph -->
+      <p class="max-w-5xl text-gray-700 text-lg">
+        Fasilitas kesehatan merupakan faktor penting dalam sistem kesehatan
+        masyarakat. Namun, berbagai tantangan infrastruktur, kebijakan, dan
+        faktor geografis masih menghambat pelayanan optimal kepada masyarakat.
+      </p>
+
+      <div class="w-full px-8 md:px-24 pt-8">
+        <div class="max-w-6xl mx-auto">
+          <h3 class="text-3xl font-bold text-indigo-600 mb-6">
+            Identifikasi Permasalahan
+          </h3>
+
+          <div class="grid md:grid-cols-2 gap-8 text-left">
+            <!-- Box per faktor -->
+            <div
+              class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition flex flex-col items-start"
+            >
+              <div class="text-4xl text-indigo-400 mb-4">🏥</div>
+              <h4 class="text-xl font-semibold mb-2 text-indigo-500">
+                Faktor Infrastruktur dan Teknologi
+              </h4>
+              <ul class="list-disc pl-5 text-gray-700">
+                <li>Ketersediaan rumah sakit</li>
+                <li>Penggunaan teknologi dalam sistem informasi kesehatan</li>
+              </ul>
+            </div>
+
+            <div
+              class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition flex flex-col items-start"
+            >
+              <div class="text-4xl text-indigo-400 mb-4">🏛️</div>
+              <h4 class="text-xl font-semibold mb-2 text-indigo-500">
+                Faktor Kebijakan Pemerintah
+              </h4>
+              <ul class="list-disc pl-5 text-gray-700">
+                <li>Regulasi dan pendanaan fasilitas kesehatan</li>
+                <li>Dukungan program kesehatan untuk daerah terpencil</li>
+              </ul>
+            </div>
+
+            <div
+              class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition flex flex-col items-start"
+            >
+              <div class="text-4xl text-indigo-400 mb-4">🗺️</div>
+              <h4 class="text-xl font-semibold mb-2 text-indigo-500">
+                Faktor Geografis
+              </h4>
+              <ul class="list-disc pl-5 text-gray-700">
+                <li>Jarak ke fasilitas kesehatan</li>
+                <li>Ketersediaan transportasi menuju rumah sakit</li>
+              </ul>
+            </div>
+
+            <div
+              class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition flex flex-col items-start"
+            >
+              <div class="text-4xl text-indigo-400 mb-4">👥</div>
+              <h4 class="text-xl font-semibold mb-2 text-indigo-500">
+                Faktor Sosial dan Ekonomi
+              </h4>
+              <ul class="list-disc pl-5 text-gray-700">
+                <li>Biaya perawatan yang tinggi</li>
+                <li>Kesadaran masyarakat terhadap layanan kesehatan</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Masalah Spesifik -->
+          <div class="mt-16">
+            <h3 class="text-3xl font-bold text-indigo-600 mb-6">
+              Masalah Spesifik
+            </h3>
+
+            <div class="grid md:grid-cols-2 gap-8 text-left">
+              <div
+                class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition flex flex-col items-start"
+              >
+                <div class="text-4xl text-red-400 mb-4">🏨</div>
+                <h4 class="text-xl font-semibold text-red-500 mb-2">
+                  Antrian Pasien dan Keterbatasan Ruang Rawat Inap
+                </h4>
+                <p class="text-gray-700 font-bold mb-2">Masalah :</p>
+                <ul class="list-disc pl-5 text-gray-700 mb-4">
+                  <li>Antrian pasien menyebabkan penundaan pelayanan.</li>
+                  <li>
+                    Keterbatasan kamar rawat inap membuat pasien sulit mendapat
+                    layanan cepat.
+                  </li>
+                </ul>
+                <p class="text-gray-700 font-bold mb-2">Dampak :</p>
+                <ul class="list-disc pl-5 text-gray-700">
+                  <li>Pasien kritis bisa mengalami kondisi memburuk.</li>
+                  <li>Tenaga medis kewalahan dalam pelayanan.</li>
+                </ul>
+              </div>
+
+              <div
+                class="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition flex flex-col items-start"
+              >
+                <div class="text-4xl text-red-400 mb-4">🚑</div>
+                <h4 class="text-xl font-semibold text-red-500 mb-2">
+                  Minimnya Pusat Trauma & Ketimpangan Akses Faskes
+                </h4>
+                <p class="text-gray-700 font-bold mb-2">Masalah :</p>
+                <ul class="list-disc pl-5 text-gray-700 mb-4">
+                  <li>
+                    Kekurangan pusat trauma menghambat pertolongan korban
+                    kecelakaan.
+                  </li>
+                  <li>
+                    Akses ke rumah sakit sulit dan waktu emas ("golden hour")
+                    terlewatkan.
+                  </li>
+                </ul>
+                <p class="text-gray-700 font-bold mb-2">Dampak :</p>
+                <ul class="list-disc pl-5 text-gray-700">
+                  <li>Tingkat kematian akibat kecelakaan meningkat.</li>
+                  <li>Beban rumah sakit rujukan bertambah berat.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Solusi -->
+          <div class="mt-16">
+            <h3 class="text-3xl font-bold text-indigo-600 mb-6">
+              Perancangan Solusi
+            </h3>
+
+            <p class="text-gray-700 mb-8 max-w-3xl">
+              Solusi dikembangkan melalui pemanfaatan komputasi berbasis spasial
+              untuk menganalisis dan meningkatkan aksesibilitas fasilitas
+              kesehatan di Kabupaten Barito Selatan.
+            </p>
+
+            <div class="flex flex-wrap justify-center gap-6">
+              <div
+                class="bg-indigo-100 text-indigo-800 px-6 py-4 rounded-full shadow-sm"
+              >
+                Persebaran Faskes
+              </div>
+              <div
+                class="bg-indigo-100 text-indigo-800 px-6 py-4 rounded-full shadow-sm"
+              >
+                Populasi Penduduk
+              </div>
+              <div
+                class="bg-indigo-100 text-indigo-800 px-6 py-4 rounded-full shadow-sm"
+              >
+                Jaringan Jalan
+              </div>
+              <div
+                class="bg-indigo-100 text-indigo-800 px-6 py-4 rounded-full shadow-sm"
+              >
+                Waktu Tempuh
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Data & Analisis Content -->
+    <div id="data-analisis" class="p-8 hidden space-y-16">
+      <!-- Section: Banner Atas -->
+      <div
+        class="relative max-w-6xl mx-auto bg-gradient-to-r from-indigo-100 via-white to-indigo-100 rounded-3xl shadow-xl overflow-hidden"
+      >
+        <div class="grid md:grid-cols-2 gap-6 items-center p-10">
+          <div class="space-y-4">
+            <h2 class="text-3xl font-extrabold text-indigo-700 leading-tight">
+              Data dan Analisis Aksesibilitas
+            </h2>
+            <p class="text-gray-700 text-lg">
+              Analisis spasial untuk memahami distribusi fasilitas kesehatan dan
+              aksesibilitas masyarakat di Kabupaten Barito Selatan.
+            </p>
+          </div>
+          <img
+            src="assets/images3.webp"
+            alt="Analisis Ilustrasi"
+            class="w-full"
+          />
+        </div>
+      </div>
+
+      <!-- Section: Tools & Materials -->
+      <div class="max-w-6xl mx-auto">
+        <h3 class="text-2xl font-bold text-indigo-600 mb-8 text-center">
+          Alat dan Bahan
+        </h3>
+
+        <div class="grid md:grid-cols-2 gap-10">
+          <!-- Tools Card -->
+          <div
+            class="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition flex flex-col items-center space-y-4"
+          >
+            <!-- SVG Icon Tools -->
+            <div
+              class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-10 h-10 text-indigo-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9.75 3h4.5c.69 0 1.25.56 1.25 1.25v2.5c0 .69-.56 1.25-1.25 1.25h-4.5c-.69 0-1.25-.56-1.25-1.25v-2.5C8.5 3.56 9.06 3 9.75 3zM4 7h16M4 11h16M4 15h16M4 19h16"
+                />
+              </svg>
+            </div>
+
+            <h4 class="text-xl font-semibold text-indigo-600">Tools</h4>
+            <ul class="text-gray-700 list-disc pl-5 space-y-1 text-left">
+              <li>Laptop</li>
+              <li>Google Colab</li>
+              <li>Visual Studio Code</li>
+              <li>GitHub</li>
+              <li>Vercel</li>
+            </ul>
+          </div>
+
+          <!-- Materials Card -->
+          <div
+            class="bg-white rounded-xl p-8 shadow-lg hover:shadow-2xl transition flex flex-col items-center space-y-4"
+          >
+            <!-- SVG Icon Materials -->
+            <div
+              class="w-20 h-20 rounded-full bg-indigo-100 flex items-center justify-center"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-10 h-10 text-indigo-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 17v-6h13v6m-6-6V5h-7v6h7zm6 6v-6h-7v6h7zM4 5v14c0 1.104.896 2 2 2h10"
+                />
+              </svg>
+            </div>
+
+            <h4 class="text-xl font-semibold text-indigo-600">Bahan</h4>
+            <ul class="text-gray-700 list-disc pl-5 space-y-1 text-left">
+              <li>Persebaran Fasilitas Kesehatan</li>
+              <li>Populasi Penduduk</li>
+              <li>Data DEMNAS</li>
+              <li>Jaringan Jalan</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Lokasi Mini Project -->
+      <div class="max-w-6xl mx-auto text-center space-y-6">
+        <h3 class="text-2xl font-bold text-indigo-600">Lokasi Mini Project</h3>
+        <p class="text-gray-700 max-w-3xl mx-auto">
+          Kabupaten Barito Selatan dipilih karena memiliki variasi kondisi medan
+          (slope), keterbatasan dokumentasi aksesibilitas fasilitas kesehatan,
+          dan kebutuhan untuk mendukung kebijakan lokal berbasis data spasial.
+        </p>
+        <img
+          src="assets/peta-wilayah.webp"
+          alt="Peta Lokasi"
+          class="w-1/2 mx-auto"
+        />
+      </div>
+
+      <!-- Section: Data dan Metode -->
+      <div class="max-w-6xl mx-auto space-y-8">
+        <h3 class="text-2xl font-bold text-indigo-600 text-center">
+          Data dan Metode
+        </h3>
+
+        <div class="grid md:grid-cols-2 gap-8">
+          <!-- Persebaran Fasilitas Kesehatan -->
+          <div
+            class="flex items-start space-x-4 bg-white p-6 rounded-xl shadow hover:shadow-2xl transition"
+          >
+            <div
+              class="w-16 h-16 flex items-center justify-center rounded-full bg-indigo-100"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-8 h-8 text-indigo-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9zM8 21h8"
+                />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-indigo-600 font-semibold text-lg mb-2">
+                Persebaran Fasilitas Kesehatan
+              </h4>
+              <p class="text-gray-700 text-sm">
+                Identifikasi lokasi faskes sebagai tujuan utama analisis
+                aksesibilitas.
+              </p>
+            </div>
+          </div>
+
+          <!-- Data Jaringan Jalan -->
+          <div
+            class="flex items-start space-x-4 bg-white p-6 rounded-xl shadow hover:shadow-2xl transition"
+          >
+            <div
+              class="w-16 h-16 flex items-center justify-center rounded-full bg-indigo-100"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-8 h-8 text-indigo-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 6h16M4 10h16M4 14h16M4 18h16"
+                />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-indigo-600 font-semibold text-lg mb-2">
+                Data Jaringan Jalan
+              </h4>
+              <p class="text-gray-700 text-sm">
+                Jaringan jalan dikonversi menjadi graph untuk analisis rute
+                terpendek menggunakan algoritma Dijkstra.
+              </p>
+            </div>
+          </div>
+
+          <!-- Populasi Penduduk -->
+          <div
+            class="flex items-start space-x-4 bg-white p-6 rounded-xl shadow hover:shadow-2xl transition"
+          >
+            <div
+              class="w-16 h-16 flex items-center justify-center rounded-full bg-indigo-100"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-8 h-8 text-indigo-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M17 20h5v-2a4 4 0 00-5-4h-1M9 20H4v-2a4 4 0 015-4h1M12 4a4 4 0 11-8 0 4 4 0 018 0zm8 4a4 4 0 11-8 0 4 4 0 018 0z"
+                />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-indigo-600 font-semibold text-lg mb-2">
+                Populasi Penduduk
+              </h4>
+              <p class="text-gray-700 text-sm">
+                Data populasi digunakan untuk memperhitungkan beban akses jalan
+                dan kapasitas fasilitas kesehatan.
+              </p>
+            </div>
+          </div>
+
+          <!-- Data DEMNAS (Slope) -->
+          <div
+            class="flex items-start space-x-4 bg-white p-6 rounded-xl shadow hover:shadow-2xl transition"
+          >
+            <div
+              class="w-16 h-16 flex items-center justify-center rounded-full bg-indigo-100"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-8 h-8 text-indigo-500"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M3 17l6-6 4 4 8-8"
+                />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-indigo-600 font-semibold text-lg mb-2">
+                Data DEMNAS (Slope)
+              </h4>
+              <p class="text-gray-700 text-sm">
+                Nilai kemiringan jalan dari DEMNAS digunakan untuk mempengaruhi
+                estimasi waktu tempuh.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Library Python dan WebGIS -->
+      <div class="max-w-6xl mx-auto">
+        <h3 class="text-2xl font-bold text-indigo-600 mb-6 text-center">
+          Library yang Digunakan
+        </h3>
+        <div class="grid md:grid-cols-2 gap-10">
+          <div>
+            <h4 class="text-lg font-semibold text-indigo-700 mb-3">
+              Python untuk Analisis:
+            </h4>
+            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+              <li>
+                <span class="font-semibold text-indigo-500">pandas</span> –
+                manipulasi tabel data
+              </li>
+              <li>
+                <span class="font-semibold text-indigo-500">geopandas</span> –
+                analisis spasial vektor
+              </li>
+              <li>
+                <span class="font-semibold text-indigo-500">networkx</span> –
+                analisis jaringan jalan
+              </li>
+              <li>
+                <span class="font-semibold text-indigo-500">rasterio</span> –
+                ekstraksi raster (DEMNAS)
+              </li>
+              <li>
+                <span class="font-semibold text-indigo-500">scikit-learn</span>
+                – normalisasi data
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold text-indigo-700 mb-3">
+              WebGIS dan Deployment:
+            </h4>
+            <ul class="list-disc pl-5 text-gray-700 space-y-1">
+              <li>
+                <span class="font-semibold text-indigo-500">Mapbox GL JS</span>
+                – visualisasi spasial
+              </li>
+              <li>
+                <span class="font-semibold text-indigo-500">TailwindCSS</span> –
+                styling modern
+              </li>
+              <li>
+                <span class="font-semibold text-indigo-500">Vercel</span> –
+                hosting WebGIS cepat
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section: Proses Data Gambar -->
+      <div class="max-w-6xl mx-auto">
+        <h3 class="text-2xl font-bold text-indigo-600 mb-6 text-center">
+          Tahapan Proses Data
+        </h3>
+        <div class="space-y-6">
+          <img
+            src="assets/proses_data1.png"
+            alt="Proses Data 1"
+            class="rounded-lg shadow"
+          />
+          <img
+            src="assets/proses_data2.png"
+            alt="Proses Data 2"
+            class="rounded-lg shadow"
+          />
+          <img
+            src="assets/proses_data3.png"
+            alt="Proses Data 3"
+            class="rounded-lg shadow"
+          />
+        </div>
+      </div>
+
+      <!-- Section: Final WebGIS -->
+      <div class="max-w-6xl mx-auto text-center mt-16">
+        <h3 class="text-2xl font-bold text-indigo-600 mb-4">
+          Visualisasi Akhir WebGIS
+        </h3>
+        <p class="text-gray-700 mb-8">
+          Semua hasil analisis ditampilkan dalam WebGIS interaktif untuk
+          memudahkan eksplorasi spasial dan mendukung pengambilan keputusan
+          berbasis data.
+        </p>
+        <a
+          href="#maps"
+          onclick="showPage('maps')"
+          class="inline-block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-8 rounded-full shadow-lg transition"
+        >
+          Start Explore Map
+        </a>
+      </div>
+    </div>
 
     <!-- Map Container -->
-    <div id="map"></div>
+    <!-- <div id="map"></div> -->
+    <!-- Map Container -->
+    <div id="maps" class="hidden w-full" style="height: 100dvh">
+      <div id="map" class="w-full" style="height: 100dvh"></div>
+      <!-- Legend Gradasi -->
+      <div
+        id="legend"
+        class="absolute bottom-[16rem] right-2 bg-white p-4 rounded shadow text-xs z-50"
+      >
+        <h3 class="font-semibold mb-2">Keterangan Aksesibilitas</h3>
+        <div
+          class="w-54 h-4 mb-2 rounded"
+          style="
+            background: linear-gradient(
+              to right,
+              rgb(255, 0, 0) 0%,
+              rgb(255, 255, 0) 50%,
+              rgb(0, 0, 255) 100%
+            );
+          "
+        ></div>
+        <div class="flex justify-between text-gray-700">
+          <span class="mx-2">Akses Buruk</span>
+          <span class="mx-2">Akses Sedang</span>
+          <span class="mx-2">Akses Baik</span>
+        </div>
+      </div>
+      <div
+        id="layer-control"
+        class="absolute bottom-4 right-2 bg-white bg-opacity-80 p-4 rounded-lg shadow text-xs z-50 hidden"
+      >
+        <!-- Checkbox layers akan diisi lewat JS -->
+      </div>
+    </div>
 
     <!-- Script to initialize Mapbox and add GeoJSON heatmap -->
     <script>
+      let isCollapsed = false;
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const togglePath = document.getElementById("togglePath");
+        const logo = document.getElementById("logo");
+        const navMenu = document.getElementById("navMenu");
+
+        if (isCollapsed) {
+          // Expand Sidebar
+          sidebar.classList.remove("w-10");
+          sidebar.classList.add("w-64");
+          logo.classList.remove("hidden");
+          navMenu.classList.remove("hidden");
+          togglePath.setAttribute("d", "M15 19l-7-7 7-7"); // panah ke kiri
+          isCollapsed = false;
+        } else {
+          // Collapse Sidebar
+          sidebar.classList.remove("w-64");
+          sidebar.classList.add("w-10");
+          logo.classList.add("hidden");
+          navMenu.classList.add("hidden");
+          togglePath.setAttribute("d", "M9 5l7 7-7 7"); // panah ke kanan
+          isCollapsed = true;
+        }
+      }
+      function showPage(page) {
+        // Sembunyikan semua div
+        document.getElementById("home").classList.add("hidden");
+        document.getElementById("data-analisis").classList.add("hidden");
+        document.getElementById("maps").classList.add("hidden");
+
+        // Tampilkan div yang dipilih
+        document.getElementById(page).classList.remove("hidden");
+
+        // Kalau maps yang dibuka, paksa resize
+        if (page === "maps" && map) {
+          map.resize();
+        }
+      }
+
+      // Set default tampilkan Home
+      showPage("home");
       // Peta Mapbox
       mapboxgl.accessToken =
         "pk.eyJ1IjoibWFoYXJkaWtheXVyaWNvYmlsbGlhbiIsImEiOiJjbTdrcDk1YXIwMzcyMmtweGlpbHFvb3JwIn0.TDtP3iZj6oKYY2RPFbtLZA"; // Ganti dengan Mapbox API Key Anda
       var map = new mapboxgl.Map({
         container: "map", // ID container div
-        style: "mapbox://styles/mapbox/streets-v11", // Gaya peta
+        // style: "mapbox://styles/mapbox/streets-v11", // Gaya peta
+        style: "mapbox://styles/mapbox/satellite-streets-v11",
         center: [115.0, -2.0], // Koordinat pusat peta (longitude, latitude)
         zoom: 8, // Tingkat zoom
       });
@@ -71,26 +777,6 @@
       map.addControl(new mapboxgl.NavigationControl());
 
       map.on("load", function () {
-        // Menambahkan Source untuk administrasi_wilayah.geojson (data wilayah dengan jumlah penduduk)
-        map.addSource("administrasi-wilayah", {
-          type: "geojson",
-          data: "assets/administrasi_wilayah.geojson", // Path ke file GeoJSON wilayah
-        });
-
-        // Menambahkan Layer untuk menampilkan Polygon dengan warna coklat
-        map.addLayer({
-          id: "administrasi-wilayah-layer",
-          type: "fill",
-          source: "administrasi-wilayah",
-          layout: {
-            visibility: "visible",
-          },
-          paint: {
-            "fill-color": "rgba(139, 69, 19, 0.5)", // Coklat dengan transparansi 50%
-            "fill-outline-color": "rgba(139, 69, 19, 1)", // Coklat lebih gelap untuk garis tepi
-          },
-        });
-
         map.addSource("geojson-output", {
           type: "geojson",
           data: "assets/geojson_output.geojson", // Path ke file GeoJSON
@@ -124,6 +810,55 @@
           },
         });
 
+        // Menambahkan Source untuk administrasi_wilayah.geojson (data wilayah dengan jumlah penduduk)
+        map.addSource("administrasi-wilayah", {
+          type: "geojson",
+          data: "assets/administrasi_wilayah.geojson", // Path ke file GeoJSON wilayah
+        });
+
+        // Menambahkan Layer untuk menampilkan hanya garis polygon (bukan fill)
+        map.addLayer({
+          id: "administrasi-wilayah-layer",
+          type: "line", // ganti type ke line
+          source: "administrasi-wilayah",
+          layout: {
+            visibility: "visible",
+          },
+          paint: {
+            "line-color": "#000", // warna coklat (saddle brown)
+            "line-width": 1, // ketebalan garis
+          },
+        });
+
+        // Menambahkan Label Nama Desa + Jumlah Penduduk
+        map.addLayer({
+          id: "administrasi-wilayah-label",
+          type: "symbol",
+          source: "administrasi-wilayah",
+          layout: {
+            "text-field": [
+              "format",
+              ["get", "WADMKD"],
+              { "font-scale": 1.2 },
+              "\n",
+              "Jumlah Penduduk: ",
+              { "font-scale": 1 }, // Tambahkan teks keterangan statis
+              ["get", "jumlah_penduduk"],
+              { "font-scale": 1 },
+            ],
+            "text-font": ["Open Sans Bold", "Arial Unicode MS Bold"],
+            "text-size": 8,
+            "text-offset": [0, 0],
+            "text-anchor": "center",
+            visibility: "visible",
+          },
+          paint: {
+            "text-color": "#ffffff", // abu gelap (biar tetap terlihat)
+            "text-halo-color": "#000",
+            "text-halo-width": 1.5,
+          },
+        });
+
         // Menambahkan Source untuk jalan_slope.geojson (data jalan)
         map.addSource("jalan-slope", {
           type: "geojson",
@@ -149,112 +884,159 @@
           type: "geojson",
           data: "assets/faskes_barito_selatan.geojson", // Path ke file GeoJSON kedua
         });
+        map.loadImage(
+          "assets/hospital.png", // Path ke ikon baru kamu
+          function (error, image) {
+            if (error) throw error;
 
-        // Menambahkan markers untuk fasilitas kesehatan dengan ikon rumah sakit
-        map.addLayer({
-          id: "faskes-markers",
-          type: "symbol",
-          source: "faskes-barito-selatan",
-          layout: {
-            visibility: "visible",
-          },
-          layout: {
-            "icon-image": "hospital-15", // Gunakan ikon rumah sakit bawaan Mapbox
-            "icon-size": 1.5,
-            "icon-allow-overlap": true,
-          },
-        });
+            // Tambahkan icon ke map
+            map.addImage("hospital-modern", image);
 
-        // Menambahkan Source untuk data GeoJSON lain yang mungkin Anda miliki
-        map.addSource("other-geojson", {
-          type: "geojson",
-          data: "assets/other_data.geojson", // Path ke file GeoJSON lainnya
-        });
+            // Setelah icon berhasil di-load, buat layernya
+            map.addLayer({
+              id: "faskes-markers",
+              type: "symbol",
+              source: "faskes-barito-selatan",
+              layout: {
+                visibility: "visible",
+                "icon-image": "hospital-modern", // Pakai icon custom!
+                "icon-size": 0.07, // Sesuaikan ukuran
+                "icon-allow-overlap": true,
+              },
+            });
+          }
+        );
 
-        // Menambahkan Heatmap Layer untuk data GeoJSON lain
-        map.addLayer({
-          id: "heatmap-other-data",
-          type: "heatmap",
-          source: "other-geojson",
-          layout: {
-            visibility: "visible",
-          },
-          maxzoom: 15,
-          paint: {
-            "heatmap-intensity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              10,
-              1,
-              15,
-              3,
-            ],
-            "heatmap-radius": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              10,
-              2,
-              15,
-              30,
-            ],
-            "heatmap-color": [
-              "interpolate",
-              ["linear"],
-              ["heatmap-density"],
-              0,
-              "rgba(0, 0, 255, 0)",
-              0.1,
-              "rgb(0, 0, 255)",
-              0.3,
-              "rgb(0, 255, 0)",
-              0.5,
-              "rgb(255, 255, 0)",
-              0.7,
-              "rgb(255, 0, 0)",
-            ],
-            "heatmap-opacity": [
-              "interpolate",
-              ["linear"],
-              ["zoom"],
-              10,
-              0.5,
-              15,
-              1,
-            ],
-          },
-        });
+        // // Menambahkan markers untuk fasilitas kesehatan dengan ikon rumah sakit
+        // map.addLayer({
+        //   id: "faskes-markers",
+        //   type: "symbol",
+        //   source: "faskes-barito-selatan",
+        //   layout: {
+        //     visibility: "visible",
+        //   },
+        //   layout: {
+        //     "icon-image": "cross-15", // Gunakan ikon rumah sakit bawaan Mapbox
+        //     "icon-size": 1.5,
+        //     "icon-allow-overlap": true,
+        //   },
+        // });
       });
-      // Kontrol Layer (Layer Control)
+      function addPopupOnClick(layerId, getContent) {
+        map.on("click", layerId, function (e) {
+          const coordinates = e.features[0].geometry.coordinates.slice();
+          const properties = e.features[0].properties;
+          const popupContent = getContent(properties);
+
+          new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setHTML(popupContent)
+            .addTo(map);
+        });
+
+        // Ubah kursor jadi pointer kalau hover di layer
+        map.on("mouseenter", layerId, function () {
+          map.getCanvas().style.cursor = "pointer";
+        });
+
+        map.on("mouseleave", layerId, function () {
+          map.getCanvas().style.cursor = "";
+        });
+      }
+
+      addPopupOnClick(
+        "points-layer",
+        (properties) => `
+  <div class="max-w-xs p-2 bg-white rounded-md shadow-md text-sm">
+    <div class="font-semibold text-blue-600 mb-1">Skor Total Hasil Analisis</div>
+    <div class="text-gray-800 text-center">${parseFloat(
+      properties.skor_total
+    ).toFixed(3)} </div>
+  </div>
+`
+      );
+
+      addPopupOnClick(
+        "faskes-markers",
+        (properties) => `
+  <div class="max-w-xs p-2 bg-white rounded-md shadow-md text-sm">
+    <div class="font-semibold text-red-600 mb-1">Fasilitas Kesehatan</div>
+    <div class="text-gray-800">${properties.name || "Tidak diketahui"}</div>
+  </div>
+`
+      );
+
       const layers = [
-        { id: "administrasi-wilayah-layer", name: "Wilayah Administrasi" },
-        { id: "points-layer", name: "Titik dengan Skor" },
-        { id: "jalan-slope-layer", name: "Jalan Slope" },
-        { id: "faskes-markers", name: "Fasilitas Kesehatan" },
+        {
+          id: "administrasi-wilayah-layer",
+          name: "Wilayah Administrasi",
+          icon: "assets/wilayah.png", // Ganti ke gambar
+        },
+        {
+          id: "jalan-slope-layer",
+          name: "Jaringan Jalan",
+          icon: "assets/jalan.png",
+        },
+        {
+          id: "faskes-markers",
+          name: "Fasilitas Kesehatan",
+          icon: "assets/hospital.png",
+        },
+        {
+          id: "points-layer",
+          name: "Hasil Analisis",
+          icon: "assets/akses.png",
+        },
       ];
 
       const layerControl = document.createElement("div");
-      layerControl.classList.add("layer-control");
-      document.body.appendChild(layerControl);
+      layerControl.classList.add(
+        "layer-control",
+        "bg-white",
+        "rounded-lg",
+        "p-4",
+        "shadow",
+        "space-y-4"
+      );
+      document.getElementById("maps").appendChild(layerControl);
 
-      layers.forEach((layer) => {
+      layers.forEach((layer, index) => {
         const layerDiv = document.createElement("div");
+        layerDiv.className = "flex items-center space-x-2";
+
         const layerCheckbox = document.createElement("input");
         layerCheckbox.type = "checkbox";
         layerCheckbox.checked = true;
+        layerCheckbox.className = "form-checkbox h-4 w-4 text-blue-600";
+
         layerCheckbox.addEventListener("change", function () {
-          if (this.checked) {
-            map.setLayoutProperty(layer.id, "visibility", "visible");
-          } else {
-            map.setLayoutProperty(layer.id, "visibility", "none");
-          }
+          map.setLayoutProperty(
+            layer.id,
+            "visibility",
+            this.checked ? "visible" : "none"
+          );
         });
+
+        const layerIcon = document.createElement("img");
+        layerIcon.src = layer.icon;
+        layerIcon.alt = "Icon";
+        layerIcon.className = "w-5 h-5 object-contain"; // Ukuran kecil, rapi
+
         const layerLabel = document.createElement("label");
         layerLabel.textContent = layer.name;
+        layerLabel.className = "text-gray-700 text-sm";
+
         layerDiv.appendChild(layerCheckbox);
+        layerDiv.appendChild(layerIcon);
         layerDiv.appendChild(layerLabel);
         layerControl.appendChild(layerDiv);
+
+        // Divider, kecuali di terakhir
+        if (index !== layers.length - 1) {
+          const divider = document.createElement("div");
+          divider.className = "border-b border-gray-300 my-2";
+          layerControl.appendChild(divider);
+        }
       });
     </script>
   </body>
