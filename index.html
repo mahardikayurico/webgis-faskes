@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Heatmap Visualisasi Peta</title>
+    <title>Aksesibilitas Fasilitas Kesehatan Kabupaten Barito Selatan</title>
 
     <!-- CDN Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,9 +17,29 @@
 
     <!-- Optional: Add custom styles for the map container -->
     <style>
+      /* Peta akan mengisi seluruh halaman */
       #map {
-        width: 100%;
         height: 100vh;
+        width: 100%;
+      }
+      /* Panel kontrol di kanan atas */
+      .layer-control {
+        position: absolute;
+        top: 5rem;
+        left: 10px;
+        background: rgba(255, 255, 255, 0.7);
+        padding: 10px;
+        border-radius: 5px;
+        z-index: 999;
+      }
+      .layer-control input {
+        margin-right: 5px;
+      }
+      /* Media query untuk perangkat mobile */
+      @media screen and (max-width: 768px) {
+        .layer-control {
+          top: 7rem; /* Penambahan untuk tampilan mobile */
+        }
       }
     </style>
   </head>
@@ -27,7 +47,9 @@
   <body class="bg-gray-100">
     <!-- Page Header using Tailwind CSS -->
     <header class="bg-blue-600 p-4 text-white">
-      <h1 class="text-3xl font-bold text-center">Visualisasi Heatmap Peta</h1>
+      <h1 class="text-3xl font-bold text-center">
+        Aksesibilitas Fasilitas Kesehatan Kabupaten Barito Selatan
+      </h1>
     </header>
 
     <!-- Map Container -->
@@ -41,8 +63,8 @@
       var map = new mapboxgl.Map({
         container: "map", // ID container div
         style: "mapbox://styles/mapbox/streets-v11", // Gaya peta
-        center: [115.0, -1.5], // Koordinat pusat peta (longitude, latitude)
-        zoom: 10, // Tingkat zoom
+        center: [115.0, -2.0], // Koordinat pusat peta (longitude, latitude)
+        zoom: 8, // Tingkat zoom
       });
 
       // Menambahkan kontrol peta (zoom, layar penuh, dll)
@@ -61,8 +83,8 @@
           type: "fill",
           source: "administrasi-wilayah",
           layout: {
-                'visibility': 'visible'
-            },
+            visibility: "visible",
+          },
           paint: {
             "fill-color": "rgba(139, 69, 19, 0.5)", // Coklat dengan transparansi 50%
             "fill-outline-color": "rgba(139, 69, 19, 1)", // Coklat lebih gelap untuk garis tepi
@@ -80,8 +102,8 @@
           type: "circle",
           source: "geojson-output",
           layout: {
-                'visibility': 'visible'
-            },
+            visibility: "visible",
+          },
           paint: {
             "circle-radius": 30,
             "circle-color": [
@@ -89,7 +111,7 @@
               ["linear"],
               ["to-number", ["get", "skor_total"]], // Mengonversi skor_total ke angka
               0,
-              "rgb(0, 0, 255)", 
+              "rgb(0, 0, 255)",
               0.1,
               "rgb(255, 0, 0)", // Merah untuk skor rendah
               0.5,
@@ -114,8 +136,8 @@
           type: "line", // Jenis layer untuk menggambar garis jalan
           source: "jalan-slope",
           layout: {
-                'visibility': 'visible'
-            },
+            visibility: "visible",
+          },
           paint: {
             "line-color": "#C5172E", // Warna garis jalan (misalnya biru)
             "line-width": 2, // Lebar garis
@@ -134,8 +156,8 @@
           type: "symbol",
           source: "faskes-barito-selatan",
           layout: {
-                'visibility': 'visible'
-            },
+            visibility: "visible",
+          },
           layout: {
             "icon-image": "hospital-15", // Gunakan ikon rumah sakit bawaan Mapbox
             "icon-size": 1.5,
@@ -155,8 +177,8 @@
           type: "heatmap",
           source: "other-geojson",
           layout: {
-                'visibility': 'visible'
-            },
+            visibility: "visible",
+          },
           maxzoom: 15,
           paint: {
             "heatmap-intensity": [
@@ -204,36 +226,36 @@
           },
         });
       });
-    // Kontrol Layer (Layer Control)
-    const layers = [
-            { id: 'administrasi-wilayah-layer', name: 'Wilayah Administrasi' },
-            { id: 'points-layer', name: 'Titik dengan Skor' },
-            { id: 'jalan-slope-layer', name: 'Jalan Slope' },
-            { id: 'faskes-markers', name: 'Fasilitas Kesehatan' },
-        ];
+      // Kontrol Layer (Layer Control)
+      const layers = [
+        { id: "administrasi-wilayah-layer", name: "Wilayah Administrasi" },
+        { id: "points-layer", name: "Titik dengan Skor" },
+        { id: "jalan-slope-layer", name: "Jalan Slope" },
+        { id: "faskes-markers", name: "Fasilitas Kesehatan" },
+      ];
 
-        const layerControl = document.createElement('div');
-        layerControl.classList.add('layer-control');
-        document.body.appendChild(layerControl);
+      const layerControl = document.createElement("div");
+      layerControl.classList.add("layer-control");
+      document.body.appendChild(layerControl);
 
-        layers.forEach(layer => {
-            const layerDiv = document.createElement('div');
-            const layerCheckbox = document.createElement('input');
-            layerCheckbox.type = 'checkbox';
-            layerCheckbox.checked = true;
-            layerCheckbox.addEventListener('change', function () {
-                if (this.checked) {
-                    map.setLayoutProperty(layer.id, 'visibility', 'visible');
-                } else {
-                    map.setLayoutProperty(layer.id, 'visibility', 'none');
-                }
-            });
-            const layerLabel = document.createElement('label');
-            layerLabel.textContent = layer.name;
-            layerDiv.appendChild(layerCheckbox);
-            layerDiv.appendChild(layerLabel);
-            layerControl.appendChild(layerDiv);
+      layers.forEach((layer) => {
+        const layerDiv = document.createElement("div");
+        const layerCheckbox = document.createElement("input");
+        layerCheckbox.type = "checkbox";
+        layerCheckbox.checked = true;
+        layerCheckbox.addEventListener("change", function () {
+          if (this.checked) {
+            map.setLayoutProperty(layer.id, "visibility", "visible");
+          } else {
+            map.setLayoutProperty(layer.id, "visibility", "none");
+          }
         });
+        const layerLabel = document.createElement("label");
+        layerLabel.textContent = layer.name;
+        layerDiv.appendChild(layerCheckbox);
+        layerDiv.appendChild(layerLabel);
+        layerControl.appendChild(layerDiv);
+      });
     </script>
-</body>
+  </body>
 </html>
