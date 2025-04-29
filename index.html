@@ -132,7 +132,7 @@
       class="px-6 md:px-20 py-10 flex flex-col items-center text-center space-y-12"
     >
       <!-- Banner atau Cover -->
-      <div class="relative w-full overflow-hidden">
+      <div class="relative w-full overflow-hidden h-[80vh] md:h-[90vh]">
         <!-- Gambar background -->
         <img
           src="assets/images.png"
@@ -146,7 +146,7 @@
         >
           <!-- Judul Besar -->
           <h2
-            class="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6 drop-shadow-lg"
+            class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white leading-tight mb-6 drop-shadow-lg"
           >
             Aksesibilitas Fasilitas Kesehatan<br />Kabupaten Barito Selatan
           </h2>
@@ -155,7 +155,7 @@
           <a
             href="#maps"
             onclick="showPage('maps')"
-            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 px-8 rounded-full text-lg md:text-xl transition"
+            class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 md:py-4 md:px-8 rounded-full text-base md:text-xl transition"
           >
             Start Explore Map
           </a>
@@ -302,7 +302,7 @@
               <div
                 class="bg-indigo-100 text-indigo-800 px-6 py-4 rounded-full shadow-sm"
               >
-                Persebaran Faskes
+                Persebaran Fasilitas Kesehata
               </div>
               <div
                 class="bg-indigo-100 text-indigo-800 px-6 py-4 rounded-full shadow-sm"
@@ -317,7 +317,7 @@
               <div
                 class="bg-indigo-100 text-indigo-800 px-6 py-4 rounded-full shadow-sm"
               >
-                Waktu Tempuh
+                Data DEMNAS
               </div>
             </div>
           </div>
@@ -582,55 +582,79 @@
       </div>
 
       <!-- Section: Library Python dan WebGIS -->
-      <div class="max-w-6xl mx-auto">
+      <!-- Section: Library Python dan WebGIS -->
+      <div class="max-w-6xl mx-auto mt-16 px-4">
         <h3 class="text-2xl font-bold text-indigo-600 mb-6 text-center">
           Library yang Digunakan
         </h3>
         <div class="grid md:grid-cols-2 gap-10">
+          <!-- Kolom Python -->
           <div>
             <h4 class="text-lg font-semibold text-indigo-700 mb-3">
-              Python untuk Analisis:
+              Python untuk Analisis Spasial:
             </h4>
             <ul class="list-disc pl-5 text-gray-700 space-y-1">
               <li>
-                <span class="font-semibold text-indigo-500">pandas</span> –
-                manipulasi tabel data
+                <span class="font-semibold text-green-600">GeoPandas</span> –
+                Membaca dan mengolah data spasial (vektor).
               </li>
               <li>
-                <span class="font-semibold text-indigo-500">geopandas</span> –
-                analisis spasial vektor
+                <span class="font-semibold text-yellow-600">Shapely</span> –
+                Analisis geometri spasial (misalnya titik dalam poligon,
+                pemotongan geometri).
               </li>
               <li>
-                <span class="font-semibold text-indigo-500">networkx</span> –
-                analisis jaringan jalan
+                <span class="font-semibold text-orange-600">NetworkX</span> –
+                Analisis jaringan jalan menggunakan graf.
               </li>
               <li>
-                <span class="font-semibold text-indigo-500">rasterio</span> –
-                ekstraksi raster (DEMNAS)
+                <span class="font-semibold text-gray-700">OSMnx</span> –
+                Mendapatkan data jaringan jalan dari OpenStreetMap.
               </li>
               <li>
-                <span class="font-semibold text-indigo-500">scikit-learn</span>
-                – normalisasi data
+                <span class="font-semibold text-green-700">Rasterio</span> –
+                Membaca data raster, seperti slope dari DEMNAS.
+              </li>
+              <li>
+                <span class="font-semibold text-blue-700">Rasterstats</span> –
+                Mengambil nilai raster pada titik atau poligon tertentu.
+              </li>
+              <li>
+                <span class="font-semibold text-purple-700">NumPy</span> –
+                Perhitungan numerik yang efisien.
+              </li>
+              <li>
+                <span class="font-semibold text-pink-600">Pandas</span> –
+                Manipulasi data tabular, seperti join dan filtering.
+              </li>
+              <li>
+                <span class="font-semibold text-indigo-600">Matplotlib</span> –
+                Visualisasi data spasial dalam bentuk grafik.
+              </li>
+              <li>
+                <span class="font-semibold text-green-500">Folium</span> –
+                Visualisasi data interaktif berbasis leaflet.
               </li>
             </ul>
           </div>
 
+          <!-- Kolom WebGIS -->
           <div>
             <h4 class="text-lg font-semibold text-indigo-700 mb-3">
-              WebGIS dan Deployment:
+              Library untuk WebGIS & Deployment:
             </h4>
             <ul class="list-disc pl-5 text-gray-700 space-y-1">
               <li>
-                <span class="font-semibold text-indigo-500">Mapbox GL JS</span>
-                – visualisasi spasial
+                <span class="font-semibold text-blue-600">Mapbox GL JS</span> –
+                Visualisasi spasial interaktif di browser.
               </li>
               <li>
-                <span class="font-semibold text-indigo-500">TailwindCSS</span> –
-                styling modern
+                <span class="font-semibold text-cyan-600">Tailwind CSS</span> –
+                Styling antarmuka yang modern dan responsif.
               </li>
               <li>
-                <span class="font-semibold text-indigo-500">Vercel</span> –
-                hosting WebGIS cepat
+                <span class="font-semibold text-black">Vercel</span> – Platform
+                untuk hosting dan deployment WebGIS secara cepat dan gratis.
               </li>
             </ul>
           </div>
@@ -642,23 +666,11 @@
         <h3 class="text-2xl font-bold text-indigo-600 mb-6 text-center">
           Tahapan Proses Data
         </h3>
-        <div class="space-y-6">
-          <img
-            src="assets/proses_data1.png"
-            alt="Proses Data 1"
-            class="rounded-lg shadow"
-          />
-          <img
-            src="assets/proses_data2.png"
-            alt="Proses Data 2"
-            class="rounded-lg shadow"
-          />
-          <img
-            src="assets/proses_data3.png"
-            alt="Proses Data 3"
-            class="rounded-lg shadow"
-          />
-        </div>
+        <img
+          src="assets/diagramalir.png"
+          alt="Peta Lokasi"
+          class="w-1/2 mx-auto"
+        />
       </div>
 
       <!-- Section: Final WebGIS -->
@@ -686,7 +698,7 @@
     <!-- Map Container -->
     <div id="maps" class="hidden w-full" style="height: 100dvh">
       <div id="map" class="w-full" style="height: 100dvh"></div>
-      <!-- Legend Gradasi -->
+      Legend Gradasi
       <div
         id="legend"
         class="absolute bottom-[16rem] right-2 bg-white p-4 rounded shadow text-xs z-50"
@@ -721,30 +733,69 @@
     <script>
       let isCollapsed = false;
 
+      function isMobileOrTablet() {
+        return window.innerWidth <= 768; // Sesuaikan threshold (768px untuk mobile/tablet)
+      }
+
       function toggleSidebar() {
         const sidebar = document.getElementById("sidebar");
         const togglePath = document.getElementById("togglePath");
         const logo = document.getElementById("logo");
         const navMenu = document.getElementById("navMenu");
 
-        if (isCollapsed) {
-          // Expand Sidebar
-          sidebar.classList.remove("w-10");
-          sidebar.classList.add("w-64");
-          logo.classList.remove("hidden");
-          navMenu.classList.remove("hidden");
-          togglePath.setAttribute("d", "M15 19l-7-7 7-7"); // panah ke kiri
-          isCollapsed = false;
+        if (isMobileOrTablet()) {
+          // Untuk Mobile & Tablet ➔ langsung hide/show sidebar full
+          if (sidebar.classList.contains("hidden")) {
+            sidebar.classList.remove("hidden");
+            togglePath.setAttribute("d", "M15 19l-7-7 7-7"); // Panah kiri
+          } else {
+            sidebar.classList.add("hidden");
+            togglePath.setAttribute("d", "M9 5l7 7-7 7"); // Panah kanan
+          }
         } else {
-          // Collapse Sidebar
-          sidebar.classList.remove("w-64");
-          sidebar.classList.add("w-10");
-          logo.classList.add("hidden");
-          navMenu.classList.add("hidden");
-          togglePath.setAttribute("d", "M9 5l7 7-7 7"); // panah ke kanan
-          isCollapsed = true;
+          // Untuk Desktop ➔ Collapsing seperti biasa
+          if (isCollapsed) {
+            sidebar.classList.remove("w-10");
+            sidebar.classList.add("w-64");
+            logo.classList.remove("hidden");
+            navMenu.classList.remove("hidden");
+            togglePath.setAttribute("d", "M15 19l-7-7 7-7"); // Panah kiri
+            isCollapsed = false;
+          } else {
+            sidebar.classList.remove("w-64");
+            sidebar.classList.add("w-10");
+            logo.classList.add("hidden");
+            navMenu.classList.add("hidden");
+            togglePath.setAttribute("d", "M9 5l7 7-7 7"); // Panah kanan
+            isCollapsed = true;
+          }
         }
       }
+
+      // function toggleSidebar() {
+      //   const sidebar = document.getElementById("sidebar");
+      //   const togglePath = document.getElementById("togglePath");
+      //   const logo = document.getElementById("logo");
+      //   const navMenu = document.getElementById("navMenu");
+
+      //   if (isCollapsed) {
+      //     // Expand Sidebar
+      //     sidebar.classList.remove("w-10");
+      //     sidebar.classList.add("w-64");
+      //     logo.classList.remove("hidden");
+      //     navMenu.classList.remove("hidden");
+      //     togglePath.setAttribute("d", "M15 19l-7-7 7-7"); // panah ke kiri
+      //     isCollapsed = false;
+      //   } else {
+      //     // Collapse Sidebar
+      //     sidebar.classList.remove("w-64");
+      //     sidebar.classList.add("w-10");
+      //     logo.classList.add("hidden");
+      //     navMenu.classList.add("hidden");
+      //     togglePath.setAttribute("d", "M9 5l7 7-7 7"); // panah ke kanan
+      //     isCollapsed = true;
+      //   }
+      // }
       function showPage(page) {
         // Sembunyikan semua div
         document.getElementById("home").classList.add("hidden");
@@ -795,15 +846,15 @@
             "circle-color": [
               "interpolate",
               ["linear"],
-              ["to-number", ["get", "skor_total"]], // Mengonversi skor_total ke angka
+              ["to-number", ["get", "skor_total"]],
               0,
               "rgb(0, 0, 255)",
               0.1,
-              "rgb(255, 0, 0)", // Merah untuk skor rendah
+              "rgb(255, 0, 0)",
               0.5,
-              "rgb(255, 255, 0)", // Kuning untuk skor menengah
+              "rgb(255, 255, 0)",
               1,
-              "rgb(0, 0, 255)", // Biru untuk skor tinggi
+              "rgb(0, 0, 255)",
             ],
             "circle-opacity": 0.9,
             "circle-blur": 0.9,
