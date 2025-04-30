@@ -37,50 +37,55 @@
       }
 
       /* Legend tetap */
-  #legend {
-    width: 220px;
-  }
+      #legend {
+        width: 220px;
+      }
 
-  /* Responsive for mobile and tablet */
-  @media (max-width: 768px) {
-    .layer-control {
-      padding: 6px;
-      width: 160px;
-    }
+      /* Responsive for mobile and tablet */
+      @media (max-width: 768px) {
+        .layer-control {
+          padding: 6px;
+          width: 160px;
+        }
 
-    .layer-control div {
-      margin-bottom: 6px;
-    }
+        .layer-control div {
+          margin-bottom: 6px;
+        }
 
-    .layer-control input {
-      height: 16px;
-      width: 16px;
-    }
+        .layer-control input {
+          height: 16px;
+          width: 16px;
+        }
 
-    .layer-control img {
-      width: 16px;
-      height: 16px;
-    }
+        .layer-control img {
+          width: 16px;
+          height: 16px;
+        }
 
-    .layer-control label {
-      font-size: 10px;
-    }
+        .layer-control label {
+          font-size: 10px;
+        }
 
-    #legend {
-      padding: 6px;
-      width: 160px;
-      font-size: 10px;
-      bottom: 18rem;
-    }
+        #legend {
+          padding: 6px;
+          width: 160px;
+          font-size: 10px;
+          bottom: 18rem;
+        }
 
-    #legend h3 {
-      font-size: 12px;
-    }
+        #legend h3 {
+          font-size: 12px;
+        }
 
-    #legend span {
-      font-size: 10px;
-    }
-  }
+        #legend span {
+          font-size: 10px;
+        }
+      }
+      @media (max-width: 640px) {
+        #map-title h2 {
+          font-size: 12px;
+        }
+      }
     </style>
   </head>
 
@@ -93,9 +98,13 @@
       <!-- Logo -->
       <div
         id="logo"
-        class="w-16 h-16 bg-indigo-500 rounded-full flex items-center justify-center shadow-md transition-all duration-500"
+        class="w-16 h-16 rounded-full shadow-md transition-all duration-500 overflow-hidden p-0"
       >
-        <span class="text-white text-2xl font-bold">K7</span>
+        <img
+          src="assets/logo.png"
+          alt="Logo K7"
+          class="w-full h-full object-cover"
+        />
       </div>
 
       <!-- Navigation Buttons -->
@@ -743,6 +752,18 @@
     <!-- <div id="map"></div> -->
     <!-- Map Container -->
     <div id="maps" class="hidden w-full" style="height: 100dvh">
+      <!-- Judul dalam peta -->
+      <div
+        id="map-title"
+        class="absolute top-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/70 backdrop-blur-md px-4 py-2 rounded-md shadow-md text-center"
+      >
+        <h2
+          class="text-base sm:text-lg md:text-xl font-semibold text-indigo-700"
+        >
+          Peta Aksesibilitas Fasilitas Kesehatan Kabupaten Barito Selatan
+        </h2>
+      </div>
+
       <div id="map" class="w-full" style="height: 100dvh"></div>
       <div
         id="legend"
